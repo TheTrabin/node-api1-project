@@ -30,22 +30,23 @@ server.post('/api/users', (req,res) => {
     //Validate Name - to make sure it's in.
     
     if (!req.body.name) {
-        throw new Error('Name Is a requirement.')
+        throw new Error({ errorMessage: "Please provide name and bio for the user." })
     }
     //Validate Bio
     if (!req.body.bio) {
-        throw new Error('Bio Is a requirement.')
+        throw new Error({ errorMessage: "Please provide name and bio for the user." })
     }
     //push info to hub array
     users.push(usersInfo);
     //response of successful with return.
     res.status(201).json(usersInfo);
-
+    res.status(500).json({ errorMessage: "There was an error while saving the user to the database" })
 })
 
 //READ - Works...
 server.get('/api/users', (req,res) => {
     res.json(users)
+    res.status(500).json({ errorMessage: "The users information could not be retrieved." })
 })
 
 
@@ -57,9 +58,9 @@ server.get('/api/users/:id', (req,res) => {
     if(person) {
         res.json(person)
     } else {
-        res.status(404).json({message: 'user not found'});
+        res.status(404).json({ message: "The user with the specified ID does not exist." });
     }
-    
+    res.status(500).json({ errorMessage: "The users information could not be retrieved." })
 })
 
 
@@ -73,8 +74,9 @@ server.delete('/api/users/:id', (req,res) => {
         users = users.filter(user => user.id !== id);
         res.status(200).json(deleted);
     } else {
-        res.status(404).json({message: 'user not found'});
+        res.status(404).json({ message: "The user with the specified ID does not exist." });
     }
+    res.status(500).json({ errorMessage: "The user could not be removed" })
 })
 
 //UPDATE - change - Works...
@@ -88,7 +90,7 @@ server.patch('/api/users/:id', (req, res) => {
         Object.assign(found, changes);
         res.status(200).json(found);
     } else {
-        res.statusMessage(404).json({message: 'user id not found'})
+        res.statusMessage(404).json({ message: "The user with the specified ID does not exist." })
     }
 })
 
@@ -103,9 +105,18 @@ server.put('/api/users/:id', (req, res) => {
     if (index !== -1) {
        users[index] = changes;
         res.status(200).json(users[index]);
+        if (!req.body.name) {
+            throw new Error({ errorMessage: "Please provide name and bio for the user." })
+        }
+        //Validate Bio
+        if (!req.body.bio) {
+            throw new Error({ errorMessage: "Please provide name and bio for the user." })
+        }
+
     } else {
-        res.statusMessage(404).json({message: 'user id not found'})
+        res.statusMessage(404).json(res.statusMessage(404).json({ message: "The user with the specified ID does not exist." }))
     }
+    res.status(500).send({ errorMessage: "The user information could not be modified." )
 })
 
 
