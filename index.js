@@ -5,16 +5,16 @@ const shortid = require("shortid");
 const server = express();
 
 //inline database mock - 
-let users = [
-     {
-      id: 1,
-      name: 'Samwise Gamgee',
-    },
-    {
-      id: 2,
-      name: 'Frodo Baggins',
-    },
-];
+// let users = [
+//      {
+//       id: 1,
+//       name: 'Samwise Gamgee',
+//     },
+//     {
+//       id: 2,
+//       name: 'Frodo Baggins',
+//     },
+// ];
 //CREATE
 
 //READ
