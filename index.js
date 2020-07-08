@@ -1,46 +1,42 @@
 //call express to be required.
 const express = require("express");
 const shortid = require("shortid");
+//Validator
+const { body, validationResult } = require('express-validator');
+const { checkSchema } = require('express-validator');
 //punch variable as function: Set up server.
 const server = express();
 
 //inline database mock - 
 let users = [
      {
-      id: 1,
+      id: "1",
       name: 'Samwise Gamgee',
+      bio: 'Tag-along bodyguard'
     },
     {
-      id: 2,
+      id: "2",
       name: 'Frodo Baggins',
+      bio: 'Ring Barer'
     },
 ];
-//CREATE
 
-//READ
-
-//UPDATE
-
-//DELETE
-
-
-// GET /  server.METHOD(path, callback(request(req), response(res)))
 server.use(express.json());
 
-
-// server.get('/', (request, response) => {
-//     response.json({hello:'world'});
-// })
-
-// server.get('/hello', (request, response) => {
-//     response.json({ "hello": "Lambda School" });
-// })
-
-//CREATE
+//CREATE - Works..
+//VALIDATION WORKS!!!
 server.post('/api/users', (req,res) => {
     const usersInfo = req.body;
     usersInfo.id = shortid.generate();
-
+    //Validate Name - to make sure it's in.
+    
+    if (!req.body.name) {
+        throw new Error('Name Is a requirement.')
+    }
+    //Validate Bio
+    if (!req.body.bio) {
+        throw new Error('Bio Is a requirement.')
+    }
     //push info to hub array
     users.push(usersInfo);
     //response of successful with return.
@@ -48,13 +44,28 @@ server.post('/api/users', (req,res) => {
 
 })
 
-//READ
+//READ - Works...
 server.get('/api/users', (req,res) => {
     res.json(users)
 })
 
-//DELETE
-server.delete('api/users/:id', (req,res) => {
+
+//READ - user ID - Works...
+server.get('/api/users/:id', (req,res) => {
+    const {id} = req.params;
+    const person = users.find(user => user.id === id);
+
+    if(person) {
+        res.json(person)
+    } else {
+        res.status(404).json({message: 'user not found'});
+    }
+    
+})
+
+
+//DELETE - Works...
+server.delete('/api/users/:id', (req,res) => {
     const {id} = req.params;
 
     const deleted = users.find(user => user.id === id);
@@ -67,7 +78,7 @@ server.delete('api/users/:id', (req,res) => {
     }
 })
 
-//UPDATE - change
+//UPDATE - change - Works...
 server.patch('/api/users/:id', (req, res) => {
     const {id} = req.params;
     const changes = req.body;
@@ -82,8 +93,8 @@ server.patch('/api/users/:id', (req, res) => {
     }
 })
 
-//UPDASTE - replace
-server.put('/api/hubs/:id', (req, res) => {
+//UPDATE - replace - Works...
+server.put('/api/users/:id', (req, res) => {
     const {id} = req.params;
     const changes = req.body;
     changes.id = id;
@@ -91,8 +102,8 @@ server.put('/api/hubs/:id', (req, res) => {
     let index = users.findIndex(user => user.id === id);
 
     if (index !== -1) {
-       users.index = changes;
-        res.status(200).json(found);
+       users[index] = changes;
+        res.status(200).json(users[index]);
     } else {
         res.statusMessage(404).json({message: 'user id not found'})
     }
