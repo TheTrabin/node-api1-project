@@ -8,18 +8,17 @@ const { checkSchema } = require('express-validator');
 const server = express();
 
 //inline database mock - 
-let users = [
-     {
-      id: "1",
-      name: 'Samwise Gamgee',
-      bio: 'Tag-along bodyguard'
-    },
-    {
-      id: "2",
-      name: 'Frodo Baggins',
-      bio: 'Ring Barer'
-    },
-];
+// let users = [
+//      {
+//       id: 1,
+//       name: 'Samwise Gamgee',
+//     },
+//     {
+//       id: 2,
+//       name: 'Frodo Baggins',
+//     },
+// ];
+//CREATE
 
 server.use(express.json());
 
