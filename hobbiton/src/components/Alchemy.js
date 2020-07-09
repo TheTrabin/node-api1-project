@@ -1,8 +1,8 @@
+/** @format */
+
 import React from 'react';
 import axios from 'axios';
 
-const Alchemy = () => {
-
-}
+const Alchemy = () => {};
 
 export default Alchemy;

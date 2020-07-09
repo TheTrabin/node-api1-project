@@ -1,8 +1,8 @@
+/** @format */
+
 import React from 'react';
 import axios from 'axios';
 
-const NameRater = () => {
-
-}
+const NameRater = () => {};
 
 export default NameRater;
