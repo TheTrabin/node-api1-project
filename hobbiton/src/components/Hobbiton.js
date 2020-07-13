@@ -5,6 +5,7 @@ import React, {
     // useEffect 
 } from 'react';
 // import axios from 'axios';
+// import Inhabitant from './Inhabitant';
 import Cards from './Cards';
 
 const Hobbiton = ({ users, props }) => {
@@ -19,8 +20,8 @@ const Hobbiton = ({ users, props }) => {
 
 	return (
 		<div className='post-list'>
-			{users.map((user) => (
-				<Cards {...user} id={user.id} props={props} />
+			{users.map(user => (
+                <Cards {...user} id={user.id} user={user} props={props} users={users} />
 			))}
 		</div>
 	);

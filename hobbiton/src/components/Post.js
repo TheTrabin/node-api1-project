@@ -6,21 +6,23 @@ import axios from 'axios';
 
 const Post = () => {
     const {push} = useHistory();
-    const [users, setUsers] = useState({
-        "name" : '',
-        "bio": ''
+    const [post, setPost] = useState({
+        name : '',
+        bio: '',
+        // id: ''
     });
 
 const PostUser = () => {
     axios
-    .post('http://localhots:5000/api/users')
+    .post('http://localhost:5000/api/users', post)
     .then (res => {
+        
         console.log(res.data)
-        setUsers({
-            "name": '',
-            "bio": ''
+        setPost({
+            name: '',
+            bio: ''
         });
-        console.log("Added user: ", users);
+        console.log("Added user: ", post);
     })
     .catch (err =>{
         console.log("Failed Userpost: ", err.message, err.response)
@@ -30,14 +32,14 @@ const PostUser = () => {
 const handleChanges = e => {
     e.persist();
     const newFormData = {
-        ...users, [e.target.name]: e.target.value
+        ...post, [e.target.name]: e.target.value
     }
     
-    setUsers(newFormData);
+    setPost(newFormData);
 }
 
 const submitForm = e => {
-e.preventDefault();
+// e.preventDefault();
 PostUser();
 
 
@@ -53,8 +55,8 @@ return (
             type="text"
             placeholder="Name of Inhabitant"
             onChange={handleChanges}
-            value={users.name}
-            name="username"
+            value={post.name}
+            name="name"
         />
             
         </label>
@@ -64,13 +66,13 @@ return (
             type="text"
             placeholder="Enter some info!"
             onChange={handleChanges}
-            value={users.bio}
-            name="first_name"
+            value={post.bio}
+            name="bio"
         />
             
         </label>
         <button >Submit Form</button>
-        <pre>{JSON.stringify(users, null, 2)}</pre>
+        <pre>{JSON.stringify(post, null, 2)}</pre>
     </form>
 )
 };

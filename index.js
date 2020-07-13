@@ -51,19 +51,19 @@ server.post('/api/users', (req, res) => {
 	users.push(usersInfo);
 	//response of successful with return.
 	res.status(201).json(usersInfo);
-	res
-		.status(500)
-		.json({
-			errorMessage: 'There was an error while saving the user to the database',
-		});
-});
+})
+	.catch((error) => {
+		console.log(error)
+	res.status(500).json({errorMessage: 'There was an error while saving the user to the database',});
+	});
+
 
 //READ - Works...
 server.get('/api/users', (req, res) => {
-	res.json(users);
-	res
-		.status(500)
-		.json({ errorMessage: 'The users information could not be retrieved.' });
+	res.json(users); })
+.catch((error) => {
+	console.log(error)
+	res.status(500).json({ errorMessage: 'The users information could not be retrieved.' });
 });
 
 //READ - user ID - Works...
@@ -78,10 +78,14 @@ server.get('/api/users/:id', (req, res) => {
 			.status(404)
 			.json({ message: 'The user with the specified ID does not exist.' });
 	}
+})
+	.catch((error) => {
+		console.log(error)
 	res
 		.status(500)
 		.json({ errorMessage: 'The users information could not be retrieved.' });
-});
+	});
+
 
 //DELETE - Works...
 server.delete('/api/users/:id', (req, res) => {
@@ -97,6 +101,9 @@ server.delete('/api/users/:id', (req, res) => {
 			.status(404)
 			.json({ message: 'The user with the specified ID does not exist.' });
 	}
+})
+.catch((error) => {
+	console.log(error)
 	res.status(500).json({ errorMessage: 'The user could not be removed' });
 });
 
@@ -115,6 +122,11 @@ server.patch('/api/users/:id', (req, res) => {
 			.statusMessage(404)
 			.json({ message: 'The user with the specified ID does not exist.' });
 	}
+})
+.catch((error) => {
+	console.log(error)
+	res.statusMessage(500)
+	.json({ errorMessage: "The user information could not be modified."})
 });
 
 //UPDATE - replace - Works...
@@ -148,6 +160,9 @@ server.put('/api/users/:id', (req, res) => {
 					.json({ message: 'The user with the specified ID does not exist.' })
 			);
 	}
+})
+.catch((error) => {
+	console.log(error)
 	res
 		.status(500)
 		.send({ errorMessage: 'The user information could not be modified.' });
