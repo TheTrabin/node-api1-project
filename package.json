@@ -1,0 +1,32 @@
+{
+  "name": "api1-project",
+  "version": "1.0.0",
+  "description": "Node Express API ",
+  "main": "index.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.0",
+    "knex": "^0.20.7",
+    "shortid": "^2.2.15",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "server": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TheTrabin/node-api1-project.git"
+  },
+  "author": "Michael \"Trabin\" McLeod",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TheTrabin/node-api1-project/issues"
+  },
+  "homepage": "https://github.com/TheTrabin/node-api1-project#readme"
+}
